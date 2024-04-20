@@ -314,7 +314,7 @@ class NNUE(pl.LightningModule):
 
     loss = torch.pow(torch.abs(pt - qf), 2.5).mean()
 
-    self.log(loss_type, loss)
+    self.log(loss_type, loss, prog_bar=True)
 
     return loss
 

@@ -641,7 +641,7 @@ class TrainingRun(Thread):
     '''
 
     # The regex pattern for extracting information from the pytorch lightning's tqdm process bar output
-    ITERATION_PATTERN = re.compile(f'Epoch (\\d+).*?(\\d+)/(\\d+).*?({NUMERIC_CONST_PATTERN})it/s, loss=({NUMERIC_CONST_PATTERN})')
+    ITERATION_PATTERN = re.compile(f'Epoch (\\d+).*?(\\d+)/(\\d+).*?({NUMERIC_CONST_PATTERN})it/s, .*?(train_)?loss=({NUMERIC_CONST_PATTERN})')
     def __init__(
         self,
         gpu_id,
@@ -841,7 +841,7 @@ class TrainingRun(Thread):
                             self._last_time = curr_time
                             self._last_step = curr_step
 
-                        self._current_loss = float(matches.group(5))
+                        self._current_loss = float(matches.group(6))
                         self._has_started = True
 
                         # Provide some output for the cli interface.
