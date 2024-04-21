@@ -6,6 +6,7 @@ import features
 import os
 import sys
 import torch
+import faulthandler 
 from torch import set_num_threads as t_set_num_threads
 from pytorch_lightning import loggers as pl_loggers
 from torch.utils.data import DataLoader, Dataset
@@ -173,7 +174,8 @@ def main():
     main_device,
     args.epoch_size,
     args.validation_size)
-
+  faulthandler.enable()
+  faulthandler.dump_traceback_later(40, exit=True)
   trainer.fit(nnue, train, val)
 
   with open(os.path.join(logdir, 'training_finished'), 'w'):

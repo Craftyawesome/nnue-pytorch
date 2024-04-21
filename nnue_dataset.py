@@ -171,13 +171,18 @@ class TrainingDataProvider:
         return self
 
     def __next__(self):
+        print("1")
         v = self.fetch_next(self.stream)
 
         if v:
+            print("2v")
             tensors = v.contents.get_tensors(self.device)
+            print("3")
             self.destroy_part(v)
+            print("4")
             return tensors
         else:
+            print("stop")
             raise StopIteration
 
     def __del__(self):
