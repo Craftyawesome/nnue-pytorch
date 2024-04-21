@@ -1,0 +1,39 @@
+
+D:\github\nnue-pytorch>python train.py D:\github\nnue-data-smallnet\dfrc99-16tb7p.v2.min.dd.high-simple-eval-v4.min-v2.binpack --max_epochs=1
+Feature set: HalfKAv2_hm^
+Num real features: 22528
+Num virtual features: 768
+Num features: 23296
+Training with: ['D:\\github\\nnue-data-smallnet\\dfrc99-16tb7p.v2.min.dd.high-simple-eval-v4.min-v2.binpack']
+Validating with: ['D:\\github\\nnue-data-smallnet\\dfrc99-16tb7p.v2.min.dd.high-simple-eval-v4.min-v2.binpack']
+Seed set to 42
+Seed 42
+Using batch size 16384
+Smart fen skipping: True
+WLD fen skipping: True
+Random fen skipping: 3
+Skip early plies: -1
+Param index: 0
+Using log dir D:\github\nnue-pytorch
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Using c++ data loader
+Missing logger folder: D:\github\nnue-pytorch\lightning_logs
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Ranger optimizer loaded.
+Gradient Centralization usage = False
+
+  | Name         | Type                          | Params
+---------------------------------------------------------------
+0 | input        | DoubleFeatureTransformerSlice | 59.8 M
+1 | layer_stacks | LayerStacks                   | 376 K
+---------------------------------------------------------------
+60.2 M    Trainable params
+0         Non-trainable params
+60.2 M    Total params
+240.815   Total estimated model params size (MB)
+Sanity Checking: |                                                                               | 0/? [00:00<?, ?it/s]C:\Users\.\AppData\Roaming\Python\Python311\site-packages\pytorch_lightning\trainer\connectors\data_connector.py:441: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+C:\Users\.\AppData\Roaming\Python\Python311\site-packages\pytorch_lightning\trainer\connectors\data_connector.py:441: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=3` in the `DataLoader` to improve performance.
+Epoch 0:   1%|▌                                          | 82/6104 [00:26<31:55,  3.14it/s, v_num=0, train_loss=0.0136]
