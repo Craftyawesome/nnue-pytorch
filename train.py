@@ -10,6 +10,7 @@ import faulthandler
 from torch import set_num_threads as t_set_num_threads
 from pytorch_lightning import loggers as pl_loggers
 from torch.utils.data import DataLoader, Dataset
+import logging
 
 def make_data_loaders(train_filenames, val_filenames, feature_set, num_workers, batch_size, filtered, random_fen_skipping, wld_filtered, early_fen_skipping, param_index, main_device, epoch_size, val_size):
   # Epoch and validation sizes are arbitrary
@@ -38,6 +39,7 @@ def flatten_once(lst):
     return sum(lst, [])
 
 def main():
+  logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
   parser = argparse.ArgumentParser(description="Trains the network.")
   parser.add_argument("datasets", action='append', nargs='+', help="Training datasets (.binpack). Interleaved at chunk level if multiple specified. Same data is used for training and validation if not validation data is specified.")
   parser.add_argument("--default_root_dir", default=os.getcwd(), type=str, dest='default_root_dir', help="Root directory of an experiment.")
