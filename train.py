@@ -40,6 +40,7 @@ def flatten_once(lst):
 
 def main():
   logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+  torch.set_default_device('cuda')
   parser = argparse.ArgumentParser(description="Trains the network.")
   parser.add_argument("datasets", action='append', nargs='+', help="Training datasets (.binpack). Interleaved at chunk level if multiple specified. Same data is used for training and validation if not validation data is specified.")
   parser.add_argument("--default_root_dir", default=os.getcwd(), type=str, dest='default_root_dir', help="Root directory of an experiment.")
