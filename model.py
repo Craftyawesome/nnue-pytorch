@@ -330,7 +330,7 @@ class NNUE(pl.LightningModule):
     us, them, white_indices, white_values, black_indices, black_values, outcome, score, psqt_indices, layer_stack_indices = batch
     scorenet = self(us, them, white_indices, white_values, black_indices, black_values, psqt_indices, layer_stack_indices) * self.nnue2score
     loss = self.calc_loss(scorenet, outcome, score)
-    self.log(loss_type, loss)
+    self.log(loss_type, loss, prog_bar=True)
     return loss
 
   def training_step(self, batch, batch_idx):
