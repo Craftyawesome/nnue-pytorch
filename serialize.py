@@ -135,15 +135,15 @@ class NNUEWriter():
     weight = weight.mul(model.quantized_one).round().to(torch.int16)
     psqt_weight = psqt_weight.mul(model.nnue2score * model.weight_scale_out).round().to(torch.int32)
 
-    ascii_hist('ft bias:', bias.numpy())
-    ascii_hist('ft weight:', weight.numpy())
-    ascii_hist('ft psqt weight:', psqt_weight.numpy())
+    ascii_hist('ft bias:', bias.cpu().numpy())
+    ascii_hist('ft weight:', weight.cpu().numpy())
+    ascii_hist('ft psqt weight:', psqt_weight.cpu().numpy())
 
     # Weights stored as [num_features][outputs]
 
-    self.write_tensor(bias.flatten().numpy(), ft_compression)
-    self.write_tensor(weight.flatten().numpy(), ft_compression)
-    self.write_tensor(psqt_weight.flatten().numpy(), ft_compression)
+    self.write_tensor(bias.flatten().cpu().numpy(), ft_compression)
+    self.write_tensor(weight.flatten().cpu().numpy(), ft_compression)
+    self.write_tensor(psqt_weight.flatten().cpu().numpy(), ft_compression)
 
   def write_fc_layer(self, model, layer, is_output=False):
     # FC layers are stored as int8 weights, and int32 biases
@@ -165,9 +165,9 @@ class NNUEWriter():
 
     weight = weight.clamp(-kMaxWeight, kMaxWeight).mul(kWeightScale).round().to(torch.int8)
 
-    ascii_hist('fc bias:', bias.numpy())
+    ascii_hist('fc bias:', bias.cpu().numpy())
     print("layer has {}/{} clipped weights. Exceeding by {} the maximum {}.".format(clipped, total_elements, clipped_max, kMaxWeight))
-    ascii_hist('fc weight:', weight.numpy())
+    ascii_hist('fc weight:', weight.cpu().numpy())
 
     # FC inputs are padded to 32 elements by spec.
     num_input = weight.shape[1]
@@ -177,9 +177,9 @@ class NNUEWriter():
       new_w[:, :weight.shape[1]] = weight
       weight = new_w
 
-    self.buf.extend(bias.flatten().numpy().tobytes())
+    self.buf.extend(bias.flatten().cpu().numpy().tobytes())
     # Weights stored as [outputs][inputs], so we can flatten
-    self.buf.extend(weight.flatten().numpy().tobytes())
+    self.buf.extend(weight.flatten().cpu().numpy().tobytes())
 
   def int32(self, v):
     self.buf.extend(struct.pack("<I", v))
