@@ -2,3 +2,4 @@ __pycache__/
 env/
 build/
 logs/
+scripts/easy_train_data
